@@ -1,17 +1,21 @@
 name: Deploy ke VPS
+
 on:
   push:
     branches: [ main ]
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Deploy via SCP
-      uses: appleboy/scp-action@master
-      with:
-        host: 103.143.12.147
-        username: root
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "."
-        target: "/var/www/html"
+      - uses: actions/checkout@v3
+
+      - name: Deploy via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 103.143.12.147
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/var/www/html"
+          rm: false
