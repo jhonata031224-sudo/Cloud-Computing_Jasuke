@@ -10,6 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Inject Commit Hash
+        run: |
+          sed -i "s/{{GIT_COMMIT_HASH}}/${{ github.sha }}/g" index.html
+
       - name: Deploy via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
